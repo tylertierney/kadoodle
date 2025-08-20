@@ -31,7 +31,6 @@ const config = [
           ],
         },
       ],
-      '@typescript-eslint/no-explicit-any': 'error',
     },
   },
   {
@@ -46,7 +45,9 @@ const config = [
       '**/*.mjs',
     ],
     // Override or add rules here
-    rules: {},
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'warn',
+    },
   },
 ]
 export default config

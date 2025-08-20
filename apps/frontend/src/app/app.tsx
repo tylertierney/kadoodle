@@ -1,12 +1,7 @@
 // import styles from './app.module.scss';
 import { Link, Route, Routes } from 'react-router-dom'
-import socket from './socket'
 
 export function App() {
-  socket.on('idk', () => console.log('hi'))
-
-  // const
-
   return (
     <>
       <br />
@@ -41,9 +36,6 @@ export function App() {
           }
         />
       </Routes>
-      <button onClick={() => socket.emit('clicked', 'some message here')}>
-        test
-      </button>
     </>
   )
 }

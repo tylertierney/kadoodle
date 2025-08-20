@@ -1,5 +1,5 @@
 {
-  "name": "@kadoodle2/backend",
+  "name": "@kadoodle/backend",
   "version": "0.0.1",
   "private": true,
   "nx": {
@@ -12,15 +12,15 @@
           "build"
         ],
         "options": {
-          "buildTarget": "@kadoodle2/backend:build",
+          "buildTarget": "@kadoodle/backend:build",
           "runBuildTargetDependencies": false
         },
         "configurations": {
           "development": {
-            "buildTarget": "@kadoodle2/backend:build:development"
+            "buildTarget": "@kadoodle/backend:build:development"
           },
           "production": {
-            "buildTarget": "@kadoodle2/backend:build:production"
+            "buildTarget": "@kadoodle/backend:build:production"
           }
         }
       }

@@ -5,7 +5,6 @@ import {
   randFullName,
   randNumber,
   randUuid,
-  randWord,
 } from '@ngneat/falso'
 
 export interface CharacterObj {
@@ -61,34 +60,5 @@ export const mockPlayer = (partial?: Partial<Player>): Player => ({
   usingMedia: randBoolean(),
   stream: undefined,
   points: randNumber({ min: 100, max: 1000 }),
-  ...partial,
-})
-
-export interface Turn {
-  word: string
-  drawing: string
-  artist: Player
-  guesses: string[]
-  active: boolean
-  possibleWords: string[]
-  pointsThisTurn: {
-    [key: string]: number
-  }
-  lastTurn: boolean
-}
-
-export const mockTurn = (partial?: Partial<Turn>): Turn => ({
-  word: randWord(),
-  drawing: '',
-  artist: mockPlayer(),
-  guesses: Array(randNumber({ min: 1, max: 10 }))
-    .fill(null)
-    .map(() => randWord()),
-  active: randBoolean(),
-  possibleWords: Array(3)
-    .fill(null)
-    .map(() => randWord()),
-  pointsThisTurn: {},
-  lastTurn: randBoolean(),
   ...partial,
 })
