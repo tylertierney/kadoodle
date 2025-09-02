@@ -1,1 +1,66 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('./app/styles/utilities.scss');
+
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+
+  --bg-color: rgb(255, 235, 144);
+  --text-color: rgba(71, 71, 71, 1);
+  --off-white: #f5f5f5;
+  --orange-red: #ff5100;
+  --light-orange: #ff8400;
+
+  --navbar-height: 50px;
+  --error-text: #cc2727;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  background-image: url('/svg/cloud.svg');
+  background-repeat: repeat;
+  background-size: 100px;
+  display: flex;
+  flex-direction: column;
+  color: var(--text-color);
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+p {
+  line-height: 1.55;
+  font-size: 1.1rem;
+  max-width: 66ch;
+}
+
+.spin {
+  animation: spin 1s infinite linear forwards;
+  transform: rotate(0deg);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.crownBadge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(113, 209, 113);
+  color: white;
+  position: absolute;
+  top: -20px;
+  left: -8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

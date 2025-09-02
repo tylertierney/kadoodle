@@ -1,4 +1,11 @@
-import { Guess, Player, Room, Turn } from '@kadoodle/models'
+import {
+  ClientToServerEvents,
+  Guess,
+  Player,
+  Room,
+  ServerToClientEvents,
+  Turn,
+} from '@kadoodle/models'
 import dotenv from 'dotenv'
 import express from 'express'
 import * as path from 'path'
@@ -19,7 +26,7 @@ const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}/api`)
 })
 
-const io = new Server(server, {
+const io = new Server<ClientToServerEvents, ServerToClientEvents>(server, {
   path: '/api',
   cors: {
     origin: '*',
@@ -43,7 +50,7 @@ io.on('connection', socket => {
     io.to(roomCode).emit('draw', drawingData, room.turns)
   })
 
-  socket.on('createLobby', (playerObj, roomCode) => {
+  socket.on('createLobby', (playerObj: Player, roomCode: string) => {
     const newRoom = new Room({ roomCode })
     newRoom.addPlayer(playerObj)
     rooms.push(newRoom)

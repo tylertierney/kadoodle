@@ -1,44 +1,39 @@
-import {
-  randAnimal,
-  randBoolean,
-  randColor,
-  randFullName,
-  randNumber,
-  randUuid,
-} from '@ngneat/falso'
+import { randBoolean, randNumber, randUserName, randUuid } from '@ngneat/falso'
 
 export interface CharacterObj {
   name: string
-  icon: string
   color: string
   isSelected: boolean
 }
 
 export const characters: CharacterObj[] = [
-  { name: 'camel', icon: '', color: 'lightgreen', isSelected: true },
-  { name: 'deer', icon: '', color: '#afbff2', isSelected: false },
-  { name: 'dog', icon: '', color: '#aff2af', isSelected: false },
-  { name: 'elephant', icon: '', color: '#aff2e8', isSelected: false },
-  { name: 'gorilla', icon: '', color: '#f2afd9', isSelected: false },
-  { name: 'hippo', icon: '', color: '#d9aff2', isSelected: false },
-  { name: 'koala', icon: '', color: '#fcfba2', isSelected: false },
-  { name: 'lion', icon: '', color: '#99ffce', isSelected: false },
-  { name: 'panda', icon: '', color: '#ff99bc', isSelected: false },
-  { name: 'pig', icon: '', color: '#cd99ff', isSelected: false },
-  { name: 'rhino', icon: '', color: '#fcc9a2', isSelected: false },
-  { name: 'tiger', icon: '', color: '#abf1ff', isSelected: false },
-  { name: 'zebra', icon: '', color: '#c9abff', isSelected: false },
+  { name: 'camel', color: 'lightgreen', isSelected: true },
+  { name: 'deer', color: '#afbff2', isSelected: false },
+  { name: 'dog', color: '#aff2af', isSelected: false },
+  { name: 'elephant', color: '#aff2e8', isSelected: false },
+  { name: 'gorilla', color: '#f2afd9', isSelected: false },
+  { name: 'hippo', color: '#d9aff2', isSelected: false },
+  { name: 'koala', color: '#fcfba2', isSelected: false },
+  { name: 'lion', color: '#99ffce', isSelected: false },
+  { name: 'panda', color: '#ff99bc', isSelected: false },
+  { name: 'pig', color: '#cd99ff', isSelected: false },
+  { name: 'rhino', color: '#fcc9a2', isSelected: false },
+  { name: 'tiger', color: '#abf1ff', isSelected: false },
+  { name: 'zebra', color: '#c9abff', isSelected: false },
 ]
 
-export const mockCharacterObj = (
-  partial?: Partial<CharacterObj>,
-): CharacterObj => ({
-  name: randAnimal(),
-  icon: '',
-  color: randColor(),
-  isSelected: false,
-  ...partial,
-})
+// export const mockCharacterObj = (
+//   partial?: Partial<CharacterObj>,
+// ): CharacterObj => ({
+//   name: randAnimal(),
+
+//   color: randColor(),
+//   isSelected: false,
+//   ...partial,
+// })
+
+export const mockCharacterObj = (): CharacterObj =>
+  characters[~~(Math.random() * characters.length)]
 
 export interface Player {
   nickname: string
@@ -52,7 +47,7 @@ export interface Player {
 }
 
 export const mockPlayer = (partial?: Partial<Player>): Player => ({
-  nickname: randFullName(),
+  nickname: randUserName(),
   selectedCharacter: mockCharacterObj(),
   isVIP: randBoolean(),
   id: randUuid(),

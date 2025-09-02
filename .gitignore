@@ -48,3 +48,8 @@ vitest.config.*.timestamp*
 test-output
 
 .env*
+
+
+storybook-static
+
+*.pem

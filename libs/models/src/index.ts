@@ -1,5 +1,7 @@
 export * from './lib/guess.js'
 export * from './lib/models.js'
+export * from './lib/room-code.js'
 export * from './lib/room.js'
+export * from './lib/socket-event.js'
 export * from './lib/turn.js'
 export * from './lib/words.js'

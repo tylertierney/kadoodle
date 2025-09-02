@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <linearGradient id="gradient-1-0" gradientUnits="userSpaceOnUse" x1="229.723" y1="323.634" x2="229.723" y2="441.652" gradientTransform="matrix(0.005244, -1.313924, 3.719961, 0.014849, -1178.613838, 420.319504)" xlink:href="#gradient-1"/>
+    <linearGradient id="gradient-1" bx:pinned="true">
+      <stop offset="0" style="stop-color: rgb(255, 81, 0);"/>
+      <stop offset="1" style="stop-color: rgb(255, 132, 0);"/>
+    </linearGradient>
+    <style bx:fonts="Carter One">@import url(https://fonts.googleapis.com/css2?family=Carter+One%3Aital%2Cwght%400%2C400&amp;display=swap);</style>
+  </defs>
+  <text style="fill: url(#gradient-1-0); font-family: &quot;Carter One&quot;; font-size: 100.4px; paint-order: fill; text-transform: capitalize; white-space: pre; filter: none;" x="10.82" y="153.879">kadoodle</text>
+</svg>
