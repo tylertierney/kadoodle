@@ -4,7 +4,7 @@
     <rect 
       style="
         stroke: rgba(0, 0, 0, 0.7); 
-        fill: #efefef; 
+        fill: #f7f7f7; 
         stroke-width: 2px;"
       transform="matrix(0.997564, 0.069756, -0.069756, 0.997564, -1.178663, -32.171173)" 
       x="70.038"
@@ -16,7 +16,7 @@
     <rect 
       style="
         stroke: rgba(0, 0, 0, 0.7); 
-        fill: #efefef; 
+        fill: #f7f7f7; 
         stroke-width: 2px;" 
       x="47.959" 
       y="35.441"

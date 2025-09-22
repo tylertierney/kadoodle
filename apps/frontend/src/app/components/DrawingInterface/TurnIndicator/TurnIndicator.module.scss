@@ -1,0 +1,32 @@
+.turnIndicator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.7;
+  gap: 0.25rem;
+
+  .turnText {
+    font-weight: bold;
+    font-size: 1rem;
+    color: rgb(141, 141, 141);
+    line-height: 0.8;
+  }
+
+  .turnNumber {
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  .turnIndicator {
+    .turnText {
+      font-size: 0.9rem;
+    }
+
+    .turnNumber {
+      font-size: 1rem;
+    }
+  }
+}

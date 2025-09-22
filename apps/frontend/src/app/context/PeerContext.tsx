@@ -17,8 +17,8 @@ export interface StreamsIdentifier {
 }
 
 interface PeerContextType {
-  peer: any
-  setPeer: Dispatch<SetStateAction<any>>
+  peer: Peer | undefined
+  setPeer: Dispatch<SetStateAction<Peer | undefined>>
   peerId: string
   setPeerId: Dispatch<SetStateAction<string>>
   userStream: MediaStream | null
@@ -32,7 +32,7 @@ interface PeerContextType {
 }
 
 const initial: PeerContextType = {
-  peer: null,
+  peer: undefined,
   setPeer: () => ({}),
   peerId: '',
   setPeerId: () => ({}),

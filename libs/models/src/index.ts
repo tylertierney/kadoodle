@@ -1,3 +1,4 @@
+export * from './lib/drawing.js'
 export * from './lib/guess.js'
 export * from './lib/models.js'
 export * from './lib/room-code.js'

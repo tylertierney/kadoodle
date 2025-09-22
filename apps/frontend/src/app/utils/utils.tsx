@@ -50,3 +50,38 @@ export const getNumberSuffix = (number: number) => {
       return 'th'
   }
 }
+
+export const randColor = () => {
+  const randInt = () => ~~(Math.random() * 256)
+  return `rgb(${randInt()}, ${randInt()}, ${randInt()})`
+}
+
+export const mockMediastream = (): MediaStream => {
+  const stream = new MediaStream()
+
+  const canvas = document.createElement('canvas')
+  canvas.width = 24
+  canvas.height = 24
+
+  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+  const color = randColor()
+  ctx.fillStyle = color
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+  let r = 0
+  while (r < canvas.height) {
+    let c = 0
+    while (c < canvas.width) {
+      const color = randColor()
+      ctx.fillStyle = color
+      ctx.fillRect(r, c, 1, 1)
+      c++
+    }
+    r++
+  }
+
+  const fakeTrack = canvas.captureStream().getVideoTracks()[0]
+  stream.addTrack(fakeTrack)
+
+  return stream
+}

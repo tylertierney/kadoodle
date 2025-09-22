@@ -51,32 +51,6 @@ const meta = {
   component: Wrapper,
   title: 'Tabs',
   args: {},
-  // decorators: [
-  //   Story => (
-  //     <div
-  //       style={{
-  //         backgroundColor: 'var(--bg-color)',
-  //         backgroundImage: `url('/svg/cloud.svg')`,
-  //         backgroundRepeat: 'repeat',
-  //         backgroundSize: '100px',
-  //         padding: '2rem',
-  //         display: 'flex',
-  //         flexDirection: 'column',
-  //         minHeight: '100vh',
-  //         color: 'white',
-  //       }}>
-  //       <div
-  //         style={{
-  //           padding: '2rem',
-  //           backgroundColor: 'rgba(71, 38, 6, 0.482)',
-  //           borderRadius: '8px',
-  //           backdropFilter: 'blur(6px)',
-  //         }}>
-  //         <Story />
-  //       </div>
-  //     </div>
-  //   ),
-  // ],
   parameters: {
     layout: 'fullscreen',
   },

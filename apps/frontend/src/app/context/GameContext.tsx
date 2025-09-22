@@ -1,4 +1,11 @@
-import { Player, Turn } from '@kadoodle/models'
+import {
+  generateRoomCode,
+  mockPlayer,
+  Player,
+  Turn,
+  words,
+} from '@kadoodle/models'
+import { randNumber } from '@ngneat/falso'
 import {
   createContext,
   Dispatch,
@@ -9,8 +16,6 @@ import {
   useEffect,
   useState,
 } from 'react'
-import socket from '../socket'
-import { getLocalStorage } from '../utils/utils'
 
 export type GameStage =
   | 'initial'
@@ -63,6 +68,33 @@ export interface GameContextType {
   setRoomCodeInput: Dispatch<SetStateAction<string>>
 }
 
+export const mockGameContext = (): GameContextType => {
+  let players = Array(randNumber({ min: 5, max: 12 }))
+    .fill(null)
+    .map(mockPlayer)
+
+  const randIdxForHost = ~~(Math.random() * players.length)
+  players = players.map((p, i) => ({ ...p, isVIP: i === randIdxForHost }))
+
+  return {
+    players,
+    setPlayers: () => [],
+    gameStage: 'playing',
+    setGameStage: () => 'initial',
+    turns: [new Turn(players[0], words)],
+    setTurns: () => [],
+    currentPlayer: players[0],
+    setCurrentPlayer: () => ({}),
+    timer: 90,
+    usingMedia: false,
+    setUsingMedia: () => ({}),
+    roomCode: generateRoomCode(),
+    setRoomCode: () => ({}),
+    roomCodeInput: '',
+    setRoomCodeInput: () => ({}),
+  }
+}
+
 export const defaultGameContext: GameContextType = {
   players: [],
   setPlayers: () => [],
@@ -93,24 +125,24 @@ const GameProvider: FC<PropsWithChildren> = ({ children }) => {
   const [roomCode, setRoomCode] = useState<string>('')
   const [roomCodeInput, setRoomCodeInput] = useState<string>('')
 
-  useEffect(() => {
-    const gameFromLocal = getLocalStorage()
-    if (gameFromLocal) {
-      if (gameFromLocal?.currentPlayer) {
-        setCurrentPlayer(gameFromLocal.currentPlayer)
-        setGameStage(gameFromLocal.gameStage)
-        setPlayers(gameFromLocal.players)
-        setTurns(gameFromLocal.turns)
-        setRoomCode(gameFromLocal.roomCode)
+  // useEffect(() => {
+  //   const gameFromLocal = getLocalStorage()
+  //   if (gameFromLocal) {
+  //     if (gameFromLocal?.currentPlayer) {
+  //       setCurrentPlayer(gameFromLocal.currentPlayer)
+  //       setGameStage(gameFromLocal.gameStage)
+  //       setPlayers(gameFromLocal.players)
+  //       setTurns(gameFromLocal.turns)
+  //       setRoomCode(gameFromLocal.roomCode)
 
-        socket.emit('getCurrentGame', gameFromLocal.roomCode)
-      }
-    }
+  //       socket.emit('getCurrentGame', gameFromLocal.roomCode)
+  //     }
+  //   }
 
-    socket.on('setTimer', (time: number) => {
-      setTimer(time)
-    })
-  }, [])
+  //   socket.on('setTimer', (time: number) => {
+  //     setTimer(time)
+  //   })
+  // }, [])
 
   useEffect(() => {
     const context = {

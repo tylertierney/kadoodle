@@ -1,4 +1,5 @@
-import { randNumber } from '@ngneat/falso'
+import { randNumber, randUuid, randWord } from '@ngneat/falso'
+import { Guess } from './guess.js'
 import { mockPlayer, Player } from './models.js'
 import { generateRoomCode } from './room-code.js'
 import { Turn } from './turn.js'
@@ -53,12 +54,47 @@ export class Room {
   }
 }
 
-export const mockRoom = (): Room => {
-  const room = new Room({ roomCode: generateRoomCode() })
-  const players = Array(randNumber({ min: 1, max: 5 }))
+export const mockRoom = (partial?: Partial<Room>): Room => {
+  const room = new Room({ roomCode: generateRoomCode(), ...partial })
+  const players = Array(randNumber({ min: 4, max: 13 }))
     .fill(0)
-    .map(mockPlayer)
-  room.players = players
-  room.possibleArtists = players
+    .map(() => mockPlayer({ isVIP: false }))
+  room.players = [...players]
+  room.possibleArtists = [...players]
+
+  ///////
+
+  let i = 0
+  while (i < players.length / 2) {
+    const artist = room.getRandomArtist()
+    const turn = new Turn(artist, room.wordList)
+    room.addTurn(turn)
+
+    // turn.setWord(turn.possibleWords[0])
+    turn.setWord('waterfall')
+
+    Array(randNumber({ min: 1, max: 30 }))
+      .fill(null)
+      .map((): Guess => {
+        const player = players[~~(Math.random() * players.length)]
+        return {
+          id: randUuid(),
+          isCorrect: false,
+          nickname: player.nickname,
+          text: randWord(),
+        }
+      })
+      .forEach(guess => turn.addGuess(guess))
+
+    players.forEach(player => {
+      const points = randNumber({ min: 10, max: 160 })
+      room.addPointsToPlayer(player.id, points)
+      turn.addPointsThisTurn({ nickname: player.nickname } as Guess, points)
+    })
+    i++
+  }
+
+  /////
+
   return room
 }

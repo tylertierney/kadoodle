@@ -34,6 +34,7 @@ export default function Button({
   onClick,
   disabled = false,
   showDisabled = false,
+  className = '',
   ...rest
 }: Props): ReactNode {
   return (
@@ -46,6 +47,7 @@ export default function Button({
         ${styles[size]}
         ${isLoading ? styles.loading : ''}
         ${disabled || showDisabled ? styles.disabled : ''}
+        ${className}
       `}
       disabled={disabled}
       onClick={isLoading ? undefined : onClick}

@@ -9,11 +9,12 @@ export default defineConfig(() => ({
   cacheDir: '../../node_modules/.vite/apps/frontend',
   server: {
     port: 3000,
-    host: '192.168.254.167',
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, '192.168.254.167-key.pem')),
-      cert: fs.readFileSync(path.resolve(__dirname, '192.168.254.167.pem')),
-    },
+    host: 'localhost',
+    // host: '192.168.254.167',
+    // https: {
+    //   key: fs.readFileSync(path.resolve(__dirname, '192.168.254.167-key.pem')),
+    //   cert: fs.readFileSync(path.resolve(__dirname, '192.168.254.167.pem')),
+    // },
   },
   preview: {
     port: 3000,

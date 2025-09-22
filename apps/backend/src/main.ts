@@ -1,6 +1,7 @@
 import {
   ClientToServerEvents,
   Guess,
+  mockRoom,
   Player,
   Room,
   ServerToClientEvents,
@@ -52,6 +53,7 @@ io.on('connection', socket => {
 
   socket.on('createLobby', (playerObj: Player, roomCode: string) => {
     const newRoom = new Room({ roomCode })
+    // const newRoom = mockRoom({ roomCode })
     newRoom.addPlayer(playerObj)
     rooms.push(newRoom)
     socket.join(roomCode)

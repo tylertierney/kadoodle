@@ -16,6 +16,4 @@ socket.on('connect_error', err => {
   socket.disconnect()
 })
 
-// socket.on('connect_error', console.log)
-
 export default socket

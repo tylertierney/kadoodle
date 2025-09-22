@@ -125,7 +125,7 @@ export default function CharacterSelect({
   }, [existingGame, setRoomCode])
 
   return (
-    <div className={styles.pageContainer}>
+    <div className={styles.characterSelect}>
       <div className={`${styles.menu} ${styles.first}`}>
         <div className={styles.controls}>
           <h2

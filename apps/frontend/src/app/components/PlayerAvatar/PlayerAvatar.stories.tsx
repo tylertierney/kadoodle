@@ -2,11 +2,19 @@ import { mockPlayer } from '@kadoodle/models'
 import { randNumber } from '@ngneat/falso'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useEffect, useState } from 'react'
+import { StreamsIdentifier } from '../../context/PeerContext'
+import { mockMediastream } from '../../utils/utils'
 import PlayerAvatar from './PlayerAvatar'
 
 const player = mockPlayer({ points: randNumber({ min: 1, max: 10 }) })
 
-const Wrapper = ({ isVIP }: { isVIP: boolean }) => {
+const Wrapper = ({
+  isVIP,
+  useVideo,
+}: {
+  isVIP: boolean
+  useVideo: boolean
+}) => {
   const [points, setPoints] = useState(player.points)
   useEffect(() => {
     const interval = setInterval(
@@ -16,6 +24,10 @@ const Wrapper = ({ isVIP }: { isVIP: boolean }) => {
 
     return () => clearInterval(interval)
   }, [])
+
+  const streams: StreamsIdentifier = useVideo
+    ? { peerId: mockMediastream() }
+    : {}
   return (
     <div
       style={{
@@ -26,7 +38,16 @@ const Wrapper = ({ isVIP }: { isVIP: boolean }) => {
         height: '100vh',
         padding: '2rem',
       }}>
-      <PlayerAvatar player={{ ...player, points, isVIP }} streams={{}} />
+      <PlayerAvatar
+        player={{
+          ...player,
+          points,
+          isVIP,
+          peerId: 'peerId',
+          usingMedia: true,
+        }}
+        streams={streams}
+      />
     </div>
   )
 }
@@ -47,5 +68,6 @@ type Story = StoryObj<typeof Wrapper>
 export const Default = {
   args: {
     isVIP: false,
+    useVideo: false,
   },
 } satisfies Story

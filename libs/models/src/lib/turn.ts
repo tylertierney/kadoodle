@@ -1,5 +1,7 @@
+import { randNumber, randWord } from '@ngneat/falso'
 import { Guess } from './guess.js'
-import { Player } from './models.js'
+import { mockPlayer, Player } from './models.js'
+import { words } from './words.js'
 
 const getRandomItemsFromArr = <T>(options: {
   numberToGet: number
@@ -82,4 +84,20 @@ export class Turn {
 
     return false
   }
+}
+
+export const mockTurn = (partial?: Partial<Turn>): Turn => {
+  return new Turn(mockPlayer(), [...words], {
+    active: false,
+    artist: mockPlayer(),
+    drawing: randWord(),
+    guesses: [],
+    lastTurn: false,
+    numOfCorrectGuesses: randNumber({ min: 1, max: 20 }),
+    pointsThisTurn: {},
+    possibleWords: getRandomItemsFromArr({ arr: [...words], numberToGet: 3 }),
+    word: randWord(),
+    timeRemaining: 90,
+    ...partial,
+  })
 }
