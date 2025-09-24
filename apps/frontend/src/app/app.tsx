@@ -1,7 +1,9 @@
 import { Player, Turn } from '@kadoodle/models'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
 import CharacterSelect from './components/CharacterSelect/CharacterSelect'
+import ArtistInterface from './components/DrawingInterface/ArtistInterface/ArtistInterface'
+import GuesserInterface from './components/DrawingInterface/GuesserInterface/GuesserInterface'
 import Footer from './components/Footer/Footer'
 import GameHome from './components/GameHome/GameHome'
 import JoinGame from './components/JoinGame/JoinGame'
@@ -22,6 +24,7 @@ export function App() {
     setGameStage,
     setTurns,
   } = useGame()
+  const [drawingData, setDrawingData] = useState('')
 
   const activeTurn = turns[turns.length - 1]
   const isArtist = currentPlayer?.id === activeTurn?.artist?.id
@@ -34,6 +37,10 @@ export function App() {
   // }, [])
 
   useEffect(() => {
+    socket.on('draw', (drawingData: string, turns: Turn[]) => {
+      setTurns(turns)
+      setDrawingData(drawingData)
+    })
     socket.on('createLobby', (players: Player[]) => {
       setPlayers(players)
     })
@@ -59,8 +66,10 @@ export function App() {
         return <Welcome />
       case 'entering_roomCode':
         return <JoinGame />
-      case 'characterSelect':
+      case 'characterSelect_creating_game':
         return <CharacterSelect existingGame={false} />
+      case 'characterSelect_joining_game':
+        return <CharacterSelect existingGame={true} />
       case 'waitingForPlayers':
         return (
           <GameHome>
@@ -77,22 +86,12 @@ export function App() {
         return (
           <GameHome>
             {isArtist ? (
-              <span>playing as artist</span>
+              <ArtistInterface />
             ) : (
-              <span>playing as guesser</span>
+              <GuesserInterface drawingData={drawingData} />
             )}
           </GameHome>
         )
-      // case "characterSelect_creating_game":
-      //   return <CharacterSelect existingGame={false} />;
-      // case "characterSelect_joining_game":
-      //   return <CharacterSelect existingGame={true} />;
-      // case "waitingForPlayers":
-      //   return <GameHome stage="waitingForPlayers" drawingData={drawingData} />;
-      // case "wordSelection":
-      //   return <GameHome stage="wordSelection" drawingData={drawingData} />;
-      // case "playing":
-      //   return <GameHome stage="playing" drawingData={drawingData} />;
       // case "roundOver":
       //   return <GameHome stage="roundOver" drawingData={drawingData} />;
       default:

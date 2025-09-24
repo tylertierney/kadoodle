@@ -40,7 +40,6 @@ export default function Canvas({ brushRadius, brushColor, canvasRef }: Props) {
         catenaryColor={brushColor}
         lazyRadius={0}
         onChange={e => {
-          console.log(e.getSaveData())
           socket.emit('draw', e.getSaveData(), roomCode)
         }}
         immediateLoading={true}

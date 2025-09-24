@@ -40,7 +40,7 @@ export default function Welcome({ style = {} }: Props) {
             variant="gradient"
             size="lg"
             rightIcon={<BiPlusCircle fontSize="1.7rem" />}
-            onClick={() => setGameStage('characterSelect')}>
+            onClick={() => setGameStage('characterSelect_creating_game')}>
             Create New Game
           </Button>
         </div>

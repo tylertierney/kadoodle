@@ -36,7 +36,7 @@ export default function JoinGame() {
       setIsLoading(false)
       if (roomExists) {
         setError('')
-        setGameStage('characterSelect')
+        setGameStage('characterSelect_joining_game')
         return
       }
       setError("That game doesn't exist, try a different code.")

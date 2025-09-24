@@ -65,10 +65,6 @@ export default function CharacterSelect({
     setGameStage('waitingForPlayers')
   }
 
-  // const selectedCharacter = charactersArr.filter((item: CharacterObj) => {
-  //   return item.isSelected
-  // })[0]
-
   const crownBadge = (
     <div className="crownBadge">
       <GiQueenCrown style={{ width: '75%', height: '75%' }} />

@@ -4,7 +4,11 @@ import Timer from '../Timer/Timer'
 import TurnIndicator from '../TurnIndicator/TurnIndicator'
 import styles from './Header.module.scss'
 
-export default function Header() {
+interface Props {
+  lettersHidden: boolean
+}
+
+export default function Header({ lettersHidden = false }: Props) {
   const { turns, timer, players } = useGame()
 
   return (
@@ -12,7 +16,7 @@ export default function Header() {
       <Timer time={timer} />
       <Letters
         bounceAnimation={true}
-        hidden={false}
+        hidden={lettersHidden}
         wordToDraw={turns.at(-1)?.word ?? ''}
       />
       <TurnIndicator turnIndex={turns.length} totalTurns={players.length} />

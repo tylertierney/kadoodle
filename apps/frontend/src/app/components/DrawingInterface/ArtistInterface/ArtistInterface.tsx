@@ -1,9 +1,8 @@
 import { useRef, useState } from 'react'
 import CanvasDraw from 'react-canvas-draw'
-
-interface Props {
-  wordToDraw: string[]
-}
+import Canvas from '../Canvas/Canvas'
+import Header from '../Header/Header'
+import Toolbar from '../Toolbar/Toolbar'
 
 export default function ArtistInterface() {
   const [brushRadius, setBrushRadius] = useState(8)
@@ -23,5 +22,24 @@ export default function ArtistInterface() {
     }
   }
 
-  return <span>hi</span>
+  return (
+    <>
+      <Header lettersHidden={false}></Header>
+      <Canvas
+        brushColor={brushColor}
+        brushRadius={brushRadius}
+        canvasRef={canvasRef}
+      />
+      <Toolbar
+        brushRadius={brushRadius}
+        setBrushRadius={setBrushRadius}
+        brushColor={brushColor}
+        setBrushColor={setBrushColor}
+        clearCanvas={clearCanvas}
+        undo={undo}
+        isArtist={true}
+        guess=""
+      />
+    </>
+  )
 }

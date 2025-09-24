@@ -1,7 +1,6 @@
 import {
   ClientToServerEvents,
   Guess,
-  mockRoom,
   Player,
   Room,
   ServerToClientEvents,
@@ -18,13 +17,16 @@ const app = express()
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')))
 
-app.get('/api', (_, res) => {
-  res.send({ message: 'Welcome to backend!' })
+const PORT: number = process.env.PORT as unknown as number
+const port = PORT || 8080
+
+const server = app.listen(port, '192.168.254.167', () => {
+  // console.log(`Listening at http://localhost:${port}/api`)
+  console.log(`Listening at http://192.168.254.167:${port}/api`)
 })
 
-const port = process.env.PORT || 8080
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`)
+app.get('/api', (_, res) => {
+  res.send({ message: 'Welcome to backend!' })
 })
 
 const io = new Server<ClientToServerEvents, ServerToClientEvents>(server, {

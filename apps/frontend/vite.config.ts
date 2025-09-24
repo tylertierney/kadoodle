@@ -1,26 +1,24 @@
 /// <reference types='vitest' />
 import react from '@vitejs/plugin-react'
-import fs from 'fs'
-import path from 'path'
 import { defineConfig } from 'vite'
 
 export default defineConfig(() => ({
+  plugins: [react()],
   root: __dirname,
   cacheDir: '../../node_modules/.vite/apps/frontend',
   server: {
     port: 3000,
-    host: 'localhost',
-    // host: '192.168.254.167',
+    // host: 'localhost',
+    host: '192.168.254.167',
     // https: {
     //   key: fs.readFileSync(path.resolve(__dirname, '192.168.254.167-key.pem')),
     //   cert: fs.readFileSync(path.resolve(__dirname, '192.168.254.167.pem')),
     // },
   },
-  preview: {
-    port: 3000,
-    host: 'localhost',
-  },
-  plugins: [react()],
+  // preview: {
+  //   port: 3000,
+  //   host: 'localhost',
+  // },
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [ nxViteTsPaths() ],

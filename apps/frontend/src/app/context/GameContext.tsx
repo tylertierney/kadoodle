@@ -16,11 +16,13 @@ import {
   useEffect,
   useState,
 } from 'react'
+import socket from '../socket'
 
 export type GameStage =
   | 'initial'
   | 'entering_roomCode'
-  | 'characterSelect'
+  | 'characterSelect_creating_game'
+  | 'characterSelect_joining_game'
   | 'waitingForPlayers'
   | 'wordSelection'
   | 'playing'
@@ -125,24 +127,24 @@ const GameProvider: FC<PropsWithChildren> = ({ children }) => {
   const [roomCode, setRoomCode] = useState<string>('')
   const [roomCodeInput, setRoomCodeInput] = useState<string>('')
 
-  // useEffect(() => {
-  //   const gameFromLocal = getLocalStorage()
-  //   if (gameFromLocal) {
-  //     if (gameFromLocal?.currentPlayer) {
-  //       setCurrentPlayer(gameFromLocal.currentPlayer)
-  //       setGameStage(gameFromLocal.gameStage)
-  //       setPlayers(gameFromLocal.players)
-  //       setTurns(gameFromLocal.turns)
-  //       setRoomCode(gameFromLocal.roomCode)
+  useEffect(() => {
+    // const gameFromLocal = getLocalStorage()
+    // if (gameFromLocal) {
+    //   if (gameFromLocal?.currentPlayer) {
+    //     setCurrentPlayer(gameFromLocal.currentPlayer)
+    //     setGameStage(gameFromLocal.gameStage)
+    //     setPlayers(gameFromLocal.players)
+    //     setTurns(gameFromLocal.turns)
+    //     setRoomCode(gameFromLocal.roomCode)
 
-  //       socket.emit('getCurrentGame', gameFromLocal.roomCode)
-  //     }
-  //   }
+    //     socket.emit('getCurrentGame', gameFromLocal.roomCode)
+    //   }
+    // }
 
-  //   socket.on('setTimer', (time: number) => {
-  //     setTimer(time)
-  //   })
-  // }, [])
+    socket.on('setTimer', (time: number) => {
+      setTimer(time)
+    })
+  }, [])
 
   useEffect(() => {
     const context = {
