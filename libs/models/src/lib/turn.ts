@@ -1,13 +1,13 @@
-import { randNumber, randUserName, randWord } from '@ngneat/falso'
+import { randNumber, randWord } from '@ngneat/falso'
 import { Guess } from './guess.js'
 import { mockPlayer, Player } from './models.js'
 import { words } from './words.js'
 
-const getRandomItemsFromArr = <T>(options: {
+const spliceRandomItemsFromArr = <T>(options: {
   numberToGet: number
   arr: Array<T>
 }): Array<T> => {
-  const { numberToGet, arr } = options
+  const { numberToGet = 0, arr = [] } = options
 
   const res: T[] = []
 
@@ -24,13 +24,17 @@ export class Turn {
   constructor(
     artist: Player,
     wordList: string[] = [],
+    players: Player[] = [],
     partial?: Partial<Turn>,
   ) {
     this.artist = artist
-    this.possibleWords = getRandomItemsFromArr({
+    this.possibleWords = spliceRandomItemsFromArr({
       arr: wordList,
       numberToGet: 3,
     })
+    this.pointsThisTurn = players
+      .filter(({ id }) => id !== artist.id)
+      .reduce((acc, { nickname }) => ({ ...acc, [nickname]: 0 }), {})
 
     if (partial) {
       Object.assign(this, partial)
@@ -87,26 +91,25 @@ export class Turn {
 }
 
 export const mockTurn = (partial?: Partial<Turn>): Turn => {
-  const possibleWords = getRandomItemsFromArr({
+  const possibleWords = spliceRandomItemsFromArr({
     arr: [...words],
     numberToGet: 3,
   })
   const word = possibleWords[~~(Math.random() * possibleWords.length)]
 
-  const pointsThisTurn: Turn['pointsThisTurn'] = Array(
-    randNumber({ min: 3, max: 16 }),
-  )
-    .fill(0)
-    .map(() => randUserName())
-    .reduce(
-      (acc, username) => ({
-        ...acc,
-        [username]: randNumber({ min: 10, max: 1_000 }),
-      }),
-      {},
-    )
+  const players = Array(randNumber({ min: 3, max: 16 }))
+    .fill(null)
+    .map(mockPlayer)
 
-  return new Turn(mockPlayer(), [...words], {
+  const pointsThisTurn: Turn['pointsThisTurn'] = players.reduce(
+    (acc, { nickname }) => ({
+      ...acc,
+      [nickname]: randNumber({ min: 10, max: 1_000 }),
+    }),
+    {},
+  )
+
+  return new Turn(mockPlayer(), [...words], players, {
     active: false,
     artist: mockPlayer(),
     drawing: randWord(),

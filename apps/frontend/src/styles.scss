@@ -15,6 +15,11 @@
   --error-text: #cc2727;
 }
 
+html {
+  position: relative;
+  overflow-x: hidden;
+}
+
 body {
   min-height: 100vh;
   background-color: var(--bg-color);
@@ -26,6 +31,7 @@ body {
   color: var(--text-color);
   margin: 0;
   overflow-x: hidden;
+  position: relative;
 }
 
 #root {

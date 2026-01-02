@@ -2,6 +2,9 @@
   "extends": "../../tsconfig.base.json",
   "files": [],
   "include": [],
+  "compilerOptions": {
+    "lib": ["ESNext"]
+  },
   "references": [
     {
       "path": "../../libs/models"

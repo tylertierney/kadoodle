@@ -111,13 +111,16 @@ export const defaultGameContext: GameContextType = {
   endGame: () => ({}),
 }
 
-export const mockGameContext = (): GameContextType => {
+export const mockGameContext = (
+  partial?: Partial<GameContextType>,
+): GameContextType => {
   const room = mockRoom()
   return {
     ...defaultGameContext,
     players: room.players,
     turns: room.turns,
     roomCode: room.roomCode,
+    ...partial,
   }
 }
 

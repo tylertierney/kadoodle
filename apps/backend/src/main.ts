@@ -34,7 +34,11 @@ app.get('/api', (_, res) => {
 const io = new Server<ClientToServerEvents, ServerToClientEvents>(server, {
   path: '/api',
   cors: {
-    origin: '*',
+    origin: [
+      'http://localhost:3000',
+      'http://192.168.254.167:3000',
+      'https://kadoodle.us',
+    ],
     methods: ['GET', 'POST'],
   },
 })
@@ -114,8 +118,8 @@ io.on('connection', socket => {
   socket.on('startGame', (roomCode: string) => {
     const room = getRoom(roomCode)
     if (!room) return
-    const firstTurnArtist = room.getRandomArtist()
-    const turnObj = new Turn(firstTurnArtist, room.wordList)
+    const artist = room.getRandomArtist()
+    const turnObj = new Turn(artist, room.wordList, room.players)
     room.addTurn(turnObj)
     io.to(roomCode).emit('startGame', room.turns, room.players)
   })
@@ -124,7 +128,7 @@ io.on('connection', socket => {
     const room = getRoom(roomCode)
     if (!room) return
     const artist = room.getRandomArtist()
-    const turnObj = new Turn(artist, room.wordList)
+    const turnObj = new Turn(artist, room.wordList, room.players)
     if (room.turns.length >= room.players.length - 1) {
       turnObj.lastTurn = true
     }
@@ -184,7 +188,7 @@ io.on('connection', socket => {
     if (!room) return
     room.restartGame()
     const firstTurnArtist = room.getRandomArtist()
-    const turnObj = new Turn(firstTurnArtist, room.wordList)
+    const turnObj = new Turn(firstTurnArtist, room.wordList, room.players)
     room.addTurn(turnObj)
     io.to(roomCode).emit('startGame', room.turns, room.players)
   })
