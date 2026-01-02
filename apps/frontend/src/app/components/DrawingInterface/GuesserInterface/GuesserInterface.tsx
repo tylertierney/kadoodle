@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react'
 import { useGame } from '../../../context/GameContext'
+import GuessesProvider from '../../../context/GuessesContext'
 import socket from '../../../socket'
 import ReadOnlyCanvas from '../Canvas/ReadOnly/ReadOnlyCanvas'
 import Letters from '../Letters/Letters'
@@ -39,7 +40,9 @@ export default function GuesserInterface({ drawingData }: Props) {
         hidden={!isCorrect}
         bounceAnimation={isCorrect}
       />
-      <ReadOnlyCanvas drawingData={drawingData} />
+      <ReadOnlyCanvas drawingData={drawingData}>
+        <GuessesProvider></GuessesProvider>
+      </ReadOnlyCanvas>
       <Toolbar
         brushRadius={9}
         setBrushRadius={() => ({})}

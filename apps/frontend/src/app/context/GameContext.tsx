@@ -1,11 +1,4 @@
-import {
-  generateRoomCode,
-  mockPlayer,
-  Player,
-  Turn,
-  words,
-} from '@kadoodle/models'
-import { randNumber } from '@ngneat/falso'
+import { mockRoom, Player, Turn } from '@kadoodle/models'
 import {
   createContext,
   Dispatch,
@@ -17,6 +10,7 @@ import {
   useState,
 } from 'react'
 import socket from '../socket'
+import { getLocalStorage } from '../utils/utils'
 
 export type GameStage =
   | 'initial'
@@ -68,34 +62,35 @@ export interface GameContextType {
   setRoomCode: Dispatch<SetStateAction<string>>
   roomCodeInput: string
   setRoomCodeInput: Dispatch<SetStateAction<string>>
+  endGame: () => void
 }
 
-export const mockGameContext = (): GameContextType => {
-  let players = Array(randNumber({ min: 5, max: 12 }))
-    .fill(null)
-    .map(mockPlayer)
+// export const mockGameContext = (): GameContextType => {
+//   let players = Array(randNumber({ min: 5, max: 12 }))
+//     .fill(null)
+//     .map(mockPlayer)
 
-  const randIdxForHost = ~~(Math.random() * players.length)
-  players = players.map((p, i) => ({ ...p, isVIP: i === randIdxForHost }))
+//   const randIdxForHost = ~~(Math.random() * players.length)
+//   players = players.map((p, i) => ({ ...p, isVIP: i === randIdxForHost }))
 
-  return {
-    players,
-    setPlayers: () => [],
-    gameStage: 'playing',
-    setGameStage: () => 'initial',
-    turns: [new Turn(players[0], words)],
-    setTurns: () => [],
-    currentPlayer: players[0],
-    setCurrentPlayer: () => ({}),
-    timer: 90,
-    usingMedia: false,
-    setUsingMedia: () => ({}),
-    roomCode: generateRoomCode(),
-    setRoomCode: () => ({}),
-    roomCodeInput: '',
-    setRoomCodeInput: () => ({}),
-  }
-}
+//   return {
+//     players,
+//     setPlayers: () => [],
+//     gameStage: 'playing',
+//     setGameStage: () => 'initial',
+//     turns: [new Turn(players[0], words)],
+//     setTurns: () => [],
+//     currentPlayer: players[0],
+//     setCurrentPlayer: () => ({}),
+//     timer: 90,
+//     usingMedia: false,
+//     setUsingMedia: () => ({}),
+//     roomCode: generateRoomCode(),
+//     setRoomCode: () => ({}),
+//     roomCodeInput: '',
+//     setRoomCodeInput: () => ({}),
+//   }
+// }
 
 export const defaultGameContext: GameContextType = {
   players: [],
@@ -113,6 +108,17 @@ export const defaultGameContext: GameContextType = {
   setRoomCode: () => ({}),
   roomCodeInput: '',
   setRoomCodeInput: () => ({}),
+  endGame: () => ({}),
+}
+
+export const mockGameContext = (): GameContextType => {
+  const room = mockRoom()
+  return {
+    ...defaultGameContext,
+    players: room.players,
+    turns: room.turns,
+    roomCode: room.roomCode,
+  }
 }
 
 export const GameContext = createContext<GameContextType>(defaultGameContext)
@@ -128,18 +134,18 @@ const GameProvider: FC<PropsWithChildren> = ({ children }) => {
   const [roomCodeInput, setRoomCodeInput] = useState<string>('')
 
   useEffect(() => {
-    // const gameFromLocal = getLocalStorage()
-    // if (gameFromLocal) {
-    //   if (gameFromLocal?.currentPlayer) {
-    //     setCurrentPlayer(gameFromLocal.currentPlayer)
-    //     setGameStage(gameFromLocal.gameStage)
-    //     setPlayers(gameFromLocal.players)
-    //     setTurns(gameFromLocal.turns)
-    //     setRoomCode(gameFromLocal.roomCode)
+    const gameFromLocal = getLocalStorage()
+    if (gameFromLocal) {
+      if (gameFromLocal?.currentPlayer) {
+        setCurrentPlayer(gameFromLocal.currentPlayer)
+        setGameStage(gameFromLocal.gameStage)
+        setPlayers(gameFromLocal.players)
+        setTurns(gameFromLocal.turns)
+        setRoomCode(gameFromLocal.roomCode)
 
-    //     socket.emit('getCurrentGame', gameFromLocal.roomCode)
-    //   }
-    // }
+        socket.emit('getCurrentGame', gameFromLocal.roomCode)
+      }
+    }
 
     socket.on('setTimer', (time: number) => {
       setTimer(time)
@@ -164,6 +170,14 @@ const GameProvider: FC<PropsWithChildren> = ({ children }) => {
     roomCode,
   ])
 
+  const endGame = () => {
+    localStorage.removeItem('doodle-context')
+    setPlayers([])
+    setGameStage('initial')
+    setTurns([])
+    setCurrentPlayer(null)
+  }
+
   const ctx: GameContextType = {
     players,
     setPlayers,
@@ -180,6 +194,7 @@ const GameProvider: FC<PropsWithChildren> = ({ children }) => {
     setRoomCode,
     roomCodeInput,
     setRoomCodeInput,
+    endGame,
   }
   return <GameContext.Provider value={ctx}>{children}</GameContext.Provider>
 }

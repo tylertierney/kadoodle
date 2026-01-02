@@ -7,11 +7,16 @@ import {
 import { BiLoaderAlt } from 'react-icons/bi'
 import styles from './Button.module.scss'
 
-export type ButtonType = 'primary' | 'secondary' | 'ghost' | 'gradient'
+export type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'ghost'
+  | 'gradient'
+  | 'danger'
 export type ButtonSize = 'sm' | 'md' | 'lg'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: ButtonType
+  variant?: ButtonVariant
   isLoading?: boolean
   rounded?: boolean
   size?: ButtonSize

@@ -1,4 +1,4 @@
-import { randNumber, randWord } from '@ngneat/falso'
+import { randNumber, randUserName, randWord } from '@ngneat/falso'
 import { Guess } from './guess.js'
 import { mockPlayer, Player } from './models.js'
 import { words } from './words.js'
@@ -87,16 +87,34 @@ export class Turn {
 }
 
 export const mockTurn = (partial?: Partial<Turn>): Turn => {
+  const possibleWords = getRandomItemsFromArr({
+    arr: [...words],
+    numberToGet: 3,
+  })
+  const word = possibleWords[~~(Math.random() * possibleWords.length)]
+
+  const pointsThisTurn: Turn['pointsThisTurn'] = Array(
+    randNumber({ min: 3, max: 16 }),
+  )
+    .fill(0)
+    .map(() => randUserName())
+    .reduce(
+      (acc, username) => ({
+        ...acc,
+        [username]: randNumber({ min: 10, max: 1_000 }),
+      }),
+      {},
+    )
+
   return new Turn(mockPlayer(), [...words], {
     active: false,
     artist: mockPlayer(),
     drawing: randWord(),
     guesses: [],
     lastTurn: false,
-    numOfCorrectGuesses: randNumber({ min: 1, max: 20 }),
-    pointsThisTurn: {},
-    possibleWords: getRandomItemsFromArr({ arr: [...words], numberToGet: 3 }),
-    word: randWord(),
+    pointsThisTurn,
+    possibleWords,
+    word,
     timeRemaining: 90,
     ...partial,
   })

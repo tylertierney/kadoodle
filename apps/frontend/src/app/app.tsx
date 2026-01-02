@@ -1,4 +1,4 @@
-import { Player, Turn } from '@kadoodle/models'
+import { Player, Room, Turn } from '@kadoodle/models'
 import { useEffect, useState } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
 import CharacterSelect from './components/CharacterSelect/CharacterSelect'
@@ -9,6 +9,8 @@ import GameHome from './components/GameHome/GameHome'
 import JoinGame from './components/JoinGame/JoinGame'
 import Lobby from './components/Lobby/Lobby'
 import Navbar from './components/Navbar/Navbar'
+import NavMenu from './components/NavMenu/NavMenu'
+import Scorecard from './components/Scorecard/Scorecard'
 import Welcome from './components/Welcome/Welcome'
 import WordSelection from './components/WordSelection/WordSelection'
 import { GameStage, useGame } from './context/GameContext'
@@ -23,8 +25,10 @@ export function App() {
     currentPlayer,
     setGameStage,
     setTurns,
+    endGame,
   } = useGame()
   const [drawingData, setDrawingData] = useState('')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const activeTurn = turns[turns.length - 1]
   const isArtist = currentPlayer?.id === activeTurn?.artist?.id
@@ -47,7 +51,6 @@ export function App() {
     socket.on('joinLobby', (players: Player[], roomCode: string) => {
       setRoomCode(roomCode)
       setPlayers(players)
-      console.log('joined a lobby:', roomCode)
     })
     socket.on('startGame', (turns: Turn[], players: Player[]) => {
       if (currentPlayer) setGameStage('wordSelection')
@@ -57,6 +60,29 @@ export function App() {
     socket.on('selectWord', (turns: Turn[]) => {
       setTurns(turns)
       setGameStage('playing')
+    })
+    socket.on('getCurrentGame', (game: Room | undefined) => {
+      if (!game) {
+        endGame()
+        return
+      }
+      setRoomCode(game.roomCode)
+      setTurns(game.turns)
+      setPlayers(game.players)
+    })
+    socket.on('addedPoints', players => {
+      setPlayers(players)
+    })
+    socket.on('endTurn', (turns: Turn[]) => {
+      setTurns(turns)
+      setGameStage('roundOver')
+    })
+    socket.on('startTurn', (turns: Turn[]) => {
+      setTurns(turns)
+      setGameStage('wordSelection')
+    })
+    socket.on('endGame', () => {
+      endGame()
     })
   }, [setPlayers, setRoomCode, setGameStage, currentPlayer, setTurns])
 
@@ -94,6 +120,12 @@ export function App() {
         )
       // case "roundOver":
       //   return <GameHome stage="roundOver" drawingData={drawingData} />;
+      case 'roundOver':
+        return (
+          <GameHome>
+            <Scorecard turn={turns.at(-1) as Turn} />
+          </GameHome>
+        )
       default:
         return <Welcome />
     }
@@ -106,8 +138,9 @@ export function App() {
           path="/"
           element={
             <>
-              <Navbar menuOpen={false} setMenuOpen={() => ({})} />
+              <Navbar menuOpen={false} setMenuOpen={setMenuOpen} />
               {getGameSection(gameStage, isArtist)}
+              <NavMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
             </>
           }
         />

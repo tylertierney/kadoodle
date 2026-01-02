@@ -1,24 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { useEffect, useState } from 'react'
-import Timer from './Timer'
+import { useState } from 'react'
+import ColorInput, { ColorType } from './ColorInput'
 
 const Wrapper = () => {
-  const [time, setTime] = useState(90)
+  const [brushColor, setBrushColor] = useState<ColorType>('white')
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(prev => prev - 1)
-    }, 1000)
-
-    return () => clearInterval(interval)
-  }, [])
-
-  return <Timer time={time} />
+  return <ColorInput brushColor={brushColor} setBrushColor={setBrushColor} />
 }
 
 const meta = {
   component: Wrapper,
-  title: 'Drawing Interface/Timer',
+  title: 'Drawing Interface/Toolbar/Color Input',
   args: {},
   argTypes: {},
   parameters: {

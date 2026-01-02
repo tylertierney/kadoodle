@@ -50,5 +50,3 @@ type Story = StoryObj<typeof ArtistInterface>
 export const Default = {
   args: {},
 } satisfies Story
-
-console.log(mockRoom())

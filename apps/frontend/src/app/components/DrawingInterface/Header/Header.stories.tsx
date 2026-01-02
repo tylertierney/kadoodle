@@ -50,5 +50,3 @@ type Story = StoryObj<typeof Header>
 export const Default = {
   args: {},
 } satisfies Story
-
-console.log(mockRoom())

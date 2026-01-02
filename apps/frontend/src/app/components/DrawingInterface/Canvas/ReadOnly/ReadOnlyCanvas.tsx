@@ -22,10 +22,10 @@ export default function ReadOnlyCanvas({
 
     if (canvasRef.current && drawingData && drawingData.length > 1) {
       setTimeout(() => {
-        canvasRef.current?.loadSaveData(drawingData)
+        canvasRef.current?.loadSaveData(drawingData, true)
       }, 1)
     }
-  }, [drawingData, canvasRef])
+  }, [drawingData])
 
   return (
     <div
@@ -38,7 +38,7 @@ export default function ReadOnlyCanvas({
         hideGrid={true}
         canvasWidth={canvasSize.width}
         canvasHeight={canvasSize.height}
-        backgroundColor="#f7f7f7"
+        backgroundColor="var(--off-white)"
         immediateLoading={false}
       />
       {children}

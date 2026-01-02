@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useRef } from 'react'
+import { PropsWithChildren, RefObject, useEffect, useRef } from 'react'
 import CanvasDraw from 'react-canvas-draw'
 import { useGame } from '../../../context/GameContext'
 import socket from '../../../socket'
@@ -12,7 +12,12 @@ interface Props {
   canvasRef: RefObject<CanvasDraw | null>
 }
 
-export default function Canvas({ brushRadius, brushColor, canvasRef }: Props) {
+export default function Canvas({
+  brushRadius,
+  brushColor,
+  canvasRef,
+  children,
+}: PropsWithChildren<Props>) {
   const { turns, currentPlayer, roomCode } = useGame()
   const canvasContainerRef = useRef<HTMLDivElement | null>(null)
   const canvasSize = useCanvasResize(
@@ -47,9 +52,9 @@ export default function Canvas({ brushRadius, brushColor, canvasRef }: Props) {
         canvasHeight={canvasSize.height}
         hideGrid={true}
         hideInterface={hideBrush}
-        backgroundColor="#f7f7f7"
+        backgroundColor="var(--off-white)"
       />
-      {/* <GuessesProvider></GuessesProvider> */}
+      {children}
     </div>
   )
 }

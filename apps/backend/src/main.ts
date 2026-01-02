@@ -11,6 +11,8 @@ import express from 'express'
 import * as path from 'path'
 import { Server } from 'socket.io'
 
+const ROUND_TIME = 90
+
 dotenv.config({ path: __dirname + '/.env' })
 
 const app = express()
@@ -79,7 +81,7 @@ io.on('connection', socket => {
     const room = getRoom(roomCode)
     if (!room) return
     const currentTurn = room.currentTurn
-    let time = 90
+    let time = ROUND_TIME
 
     if (room.players.length === 1) {
       currentTurn.lastTurn = true
@@ -90,12 +92,12 @@ io.on('connection', socket => {
       if (time === 0) {
         currentTurn.active = false
         io.to(roomCode).emit('endTurn', room.turns)
-        io.to(roomCode).emit('setTimer', 90)
+        io.to(roomCode).emit('setTimer', ROUND_TIME)
         clearInterval(handleTimer)
         return
       }
       if (!currentTurn.active) {
-        io.to(roomCode).emit('setTimer', 90)
+        io.to(roomCode).emit('setTimer', ROUND_TIME)
         clearInterval(handleTimer)
         return
       }

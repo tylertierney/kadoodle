@@ -1,4 +1,4 @@
-@import url('./app/styles/utilities.scss');
+// @import url('./app/styles/utilities.scss');
 
 *,
 :root {
@@ -7,7 +7,7 @@
 
   --bg-color: rgb(255, 235, 144);
   --text-color: rgba(71, 71, 71, 1);
-  --off-white: #f5f5f5;
+  --off-white: #f7f7f7;
   --orange-red: #ff5100;
   --light-orange: #ff8400;
 
@@ -25,6 +25,7 @@ body {
   flex-direction: column;
   color: var(--text-color);
   margin: 0;
+  overflow-x: hidden;
 }
 
 #root {

@@ -1,12 +1,14 @@
 import { useRef, useState } from 'react'
 import CanvasDraw from 'react-canvas-draw'
+import GuessesProvider from '../../../context/GuessesContext'
 import Canvas from '../Canvas/Canvas'
 import Header from '../Header/Header'
+import { ColorType } from '../Toolbar/ColorInput/ColorInput'
 import Toolbar from '../Toolbar/Toolbar'
 
 export default function ArtistInterface() {
   const [brushRadius, setBrushRadius] = useState(8)
-  const [brushColor, setBrushColor] = useState('blue')
+  const [brushColor, setBrushColor] = useState<ColorType>('blue')
 
   const canvasRef = useRef<CanvasDraw>(null)
 
@@ -28,8 +30,9 @@ export default function ArtistInterface() {
       <Canvas
         brushColor={brushColor}
         brushRadius={brushRadius}
-        canvasRef={canvasRef}
-      />
+        canvasRef={canvasRef}>
+        <GuessesProvider></GuessesProvider>
+      </Canvas>
       <Toolbar
         brushRadius={brushRadius}
         setBrushRadius={setBrushRadius}

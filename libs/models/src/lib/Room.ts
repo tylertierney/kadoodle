@@ -6,17 +6,17 @@ import { Turn } from './turn.js'
 import { words } from './words.js'
 
 export class Room {
-  constructor(partial?: Partial<Room> & { roomCode: string }) {
-    if (partial) {
-      Object.assign(this, partial)
-    }
-  }
-
   roomCode = ''
   players: Player[] = []
   turns: Turn[] = []
   possibleArtists: Player[] = []
   wordList: string[] = [...words]
+
+  constructor(partial?: Partial<Room> & { roomCode: string }) {
+    if (partial) {
+      Object.assign(this, partial)
+    }
+  }
 
   addPlayer(player: Player) {
     this.players.push(player)
@@ -70,8 +70,7 @@ export const mockRoom = (partial?: Partial<Room>): Room => {
     const turn = new Turn(artist, room.wordList)
     room.addTurn(turn)
 
-    // turn.setWord(turn.possibleWords[0])
-    turn.setWord('waterfall')
+    turn.setWord(turn.possibleWords[0])
 
     Array(randNumber({ min: 1, max: 30 }))
       .fill(null)

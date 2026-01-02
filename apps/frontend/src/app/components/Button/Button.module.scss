@@ -124,6 +124,24 @@
     }
   }
 
+  &.danger {
+    background-color: rgb(255, 56, 56);
+    color: white;
+    border: none;
+
+    &:hover:not(.loading) {
+      background-color: rgb(255, 97, 97);
+    }
+
+    &.disabled {
+      background-color: gray;
+
+      &:hover {
+        background-color: lightgray;
+      }
+    }
+  }
+
   &.gradient {
     background-position: 0%;
     background-size: 200%;

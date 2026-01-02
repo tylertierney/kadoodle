@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { BsArrowRightCircle } from 'react-icons/bs'
 import { IoIosArrowBack, IoMdMenu } from 'react-icons/io'
 import { expect, fn } from 'storybook/test'
-import Button, { ButtonSize, ButtonType } from './Button'
+import Button, { ButtonSize, ButtonVariant } from './Button'
 
 const meta = {
   component: Button,
@@ -17,7 +17,13 @@ const meta = {
       control: {
         type: 'radio',
       },
-      options: ['primary', 'secondary', 'ghost', 'gradient'] as ButtonType[],
+      options: [
+        'primary',
+        'secondary',
+        'ghost',
+        'gradient',
+        'danger',
+      ] as ButtonVariant[],
     },
     size: {
       control: {

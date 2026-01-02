@@ -10,24 +10,26 @@ const meta = {
   args: {},
   argTypes: {},
   decorators: [
-    Story => (
-      <GameContext.Provider value={mockGameContext()}>
-        <PeerProvider>
-          <div
-            style={{
-              backgroundColor: 'var(--bg-color)',
-              backgroundImage: `url('/svg/cloud.svg')`,
-              backgroundRepeat: 'repeat',
-              backgroundSize: '100px',
-              minHeight: '100vh',
-            }}>
-            <Paper>
-              <Story />
-            </Paper>
-          </div>
-        </PeerProvider>
-      </GameContext.Provider>
-    ),
+    Story => {
+      return (
+        <GameContext.Provider value={mockGameContext()}>
+          <PeerProvider>
+            <div
+              style={{
+                backgroundColor: 'var(--bg-color)',
+                backgroundImage: `url('/svg/cloud.svg')`,
+                backgroundRepeat: 'repeat',
+                backgroundSize: '100px',
+                minHeight: '100vh',
+              }}>
+              <Paper>
+                <Story />
+              </Paper>
+            </div>
+          </PeerProvider>
+        </GameContext.Provider>
+      )
+    },
   ],
   parameters: {
     layout: 'fullscreen',

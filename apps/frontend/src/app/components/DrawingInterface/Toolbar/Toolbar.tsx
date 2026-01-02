@@ -1,5 +1,6 @@
 import { Dispatch, FormEvent, SetStateAction } from 'react'
 import { FaEraser, FaTrashAlt, FaUndo } from 'react-icons/fa'
+import ColorInput from './ColorInput/ColorInput'
 import styles from './Toolbar.module.scss'
 
 export interface Props {
@@ -73,7 +74,7 @@ export default function Toolbar({
           <FaUndo fontSize="1.5rem" />
         </button>
         <button
-          onClick={() => setBrushColor('white')}
+          onClick={() => setBrushColor('#f7f7f7')}
           className={styles.controlBtn}>
           <FaEraser fontSize="1.7rem" />
         </button>
@@ -83,12 +84,13 @@ export default function Toolbar({
       </div>
       <div className={styles.paletteContainer}>
         {colors}
-        <input
+        {/* <input
           type="color"
           value={brushColor}
           onChange={e => setBrushColor(e.target.value)}
           className={styles.colorInput}
-        />
+        /> */}
+        <ColorInput brushColor={brushColor} setBrushColor={setBrushColor} />
       </div>
     </>
   )
