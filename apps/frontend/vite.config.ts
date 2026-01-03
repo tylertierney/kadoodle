@@ -11,8 +11,8 @@ export default defineConfig(() => ({
     // host: 'localhost',
     host: '192.168.254.167',
     // https: {
-    //   key: fs.readFileSync(path.resolve(__dirname, '192.168.254.167-key.pem')),
-    //   cert: fs.readFileSync(path.resolve(__dirname, '192.168.254.167.pem')),
+    //   key: fs.readFileSync(path.resolve(__dirname, '../', '../', 'key.pem')),
+    //   cert: fs.readFileSync(path.resolve(__dirname, '../', '../', 'cert.pem')),
     // },
   },
   // preview: {

@@ -1,6 +1,7 @@
 import { Player, Room, Turn } from '@kadoodle/models'
 import { useEffect, useState } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 import CharacterSelect from './components/CharacterSelect/CharacterSelect'
 import ArtistInterface from './components/DrawingInterface/ArtistInterface/ArtistInterface'
 import GuesserInterface from './components/DrawingInterface/GuesserInterface/GuesserInterface'
@@ -118,8 +119,6 @@ export function App() {
             )}
           </GameHome>
         )
-      // case "roundOver":
-      //   return <GameHome stage="roundOver" drawingData={drawingData} />;
       case 'roundOver':
         return (
           <GameHome>
@@ -133,6 +132,11 @@ export function App() {
 
   return (
     <>
+      <ToastContainer
+        position="bottom-center"
+        closeOnClick={true}
+        autoClose={3000}
+      />
       <Routes>
         <Route
           path="/"

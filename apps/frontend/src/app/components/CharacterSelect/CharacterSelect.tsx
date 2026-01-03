@@ -3,6 +3,7 @@ import { RefObject, useCallback, useEffect, useRef, useState } from 'react'
 import { BsArrowRightCircle, BsCameraVideo } from 'react-icons/bs'
 import { FaRegUserCircle } from 'react-icons/fa'
 import { GiQueenCrown } from 'react-icons/gi'
+import { toast } from 'react-toastify'
 import { useGame } from '../../context/GameContext'
 import { usePeer } from '../../context/PeerContext'
 import socket from '../../socket'
@@ -76,6 +77,12 @@ export default function CharacterSelect({
       video: false,
       audio: false,
     }
+
+    if (!navigator.mediaDevices) {
+      toast('Something went wrong', { type: 'error' })
+      return
+    }
+
     navigator.mediaDevices
       .enumerateDevices()
       .then((devices: MediaDeviceInfo[]) => {
@@ -102,6 +109,10 @@ export default function CharacterSelect({
               )
             }
           })
+      })
+      .catch(err => {
+        console.log(err)
+        toast('Something went wrong', { type: 'error' })
       })
   }, [setUserStream, setUsingMedia])
 
