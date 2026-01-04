@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "build:frontend": "npx nx build frontend --verbose",
     "storybook": "npx nx storybook frontend --port=3001"
   },
   "private": true,
