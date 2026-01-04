@@ -45,9 +45,21 @@ app.get('/api', (_, res) => {
 const io = new Server<ClientToServerEvents, ServerToClientEvents>(server, {
   path: '/socket.io',
   cors: {
-    origin: 'https://kadoodle.us',
+    origin: (origin, callback) => {
+      console.log('origin received = ' + origin)
+      if (!origin) return callback(null, true)
+
+      const allowed = ['https://kadoodle.us']
+
+      if (allowed.includes(origin)) {
+        return callback(null, true)
+      }
+
+      callback(new Error('Not allowed by CORS'))
+    },
     methods: ['GET', 'POST'],
   },
+  transports: ['polling', 'websocket'],
 })
 
 const rooms: Room[] = []
