@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "build:frontend": "npx nx build frontend --verbose",
+    "build:backend": "npx nx build backend --verbose",
     "storybook": "npx nx storybook frontend --port=3001"
   },
   "private": true,
