@@ -1,0 +1,52 @@
+.gameHome {
+  display: flex;
+  padding: 0.3rem;
+  justify-content: center;
+
+  .paper {
+    display: flex;
+    flex-grow: 1;
+    order: 2;
+    max-width: 800px;
+    align-self: flex-start;
+  }
+
+  .sidebar {
+    &.left {
+      order: 1;
+    }
+
+    &.right {
+      order: 3;
+    }
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  // .interfaceContainer {
+  //     order: 1;
+  //     width: 100%;
+  // }
+
+  .gameHome {
+    flex-direction: column;
+
+    .paper {
+      order: 1;
+      align-self: stretch;
+    }
+
+    .sidebar {
+      flex-direction: row;
+      justify-content: space-around;
+      flex-wrap: wrap;
+
+      &.left {
+        order: 2;
+      }
+      &.right {
+        order: 3;
+      }
+    }
+  }
+}

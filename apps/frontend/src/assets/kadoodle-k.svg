@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <linearGradient id="gradient-0-0" gradientUnits="userSpaceOnUse" x1="254.116" y1="118.074" x2="254.116" y2="348.705" gradientTransform="matrix(-0.985983, -1.918275, 0.627608, -0.322587, 340.063293, 771.6698)" xlink:href="#gradient-0"/>
+    <linearGradient id="gradient-0" bx:pinned="true">
+      <stop offset="0" style="stop-color: rgb(255, 81, 0);"/>
+      <stop offset="1" style="stop-color: rgb(255, 132, 0);"/>
+    </linearGradient>
+    <linearGradient id="gradient-0-1" gradientUnits="userSpaceOnUse" x1="239.773" y1="347.089" x2="239.773" y2="385.061" gradientTransform="matrix(0.491145, 0.871078, -1.301004, 0.733553, 602.473083, -107.810928)" xlink:href="#gradient-0"/>
+    <linearGradient id="gradient-0-2" gradientUnits="userSpaceOnUse" x1="239.773" y1="347.089" x2="239.773" y2="385.061" gradientTransform="matrix(-0.062801, -0.998026, 3.011734, -0.189513, -814.396545, 684.669495)" xlink:href="#gradient-0"/>
+    <linearGradient id="gradient-0-3" gradientUnits="userSpaceOnUse" x1="239.773" y1="347.089" x2="239.773" y2="385.061" gradientTransform="matrix(-0.201161, 0.979558, -3.110714, -0.638813, 1418.580322, 374.950531)" xlink:href="#gradient-0"/>
+    <style bx:fonts="Carter One">@import url(https://fonts.googleapis.com/css2?family=Carter+One%3Aital%2Cwght%400%2C400&amp;display=swap);</style>
+  </defs>
+  <g transform="matrix(1.39858, 0, 0, 1.39858, -86.730492, -91.115211)" style="">
+    <text style="fill: url(#gradient-0-0); font-family: &quot;Carter One&quot;; font-size: 323.5px; white-space: pre;" x="134.028" y="322.353">k</text>
+    <path d="M 341.191 362.039 C 341.191 372.525 295.857 381.025 239.935 381.025 C 184.013 381.025 138.679 372.525 138.679 362.039 C 138.679 351.553 184.013 343.053 239.935 343.053 C 295.857 343.053 341.191 351.553 341.191 362.039 Z" style="fill: none; stroke-width: 4px; stroke: url(#gradient-0-1);"/>
+    <path d="M 366.804 370.151 C 366.804 380.637 321.47 389.137 265.548 389.137 C 209.626 389.137 164.292 380.637 164.292 370.151 C 164.292 359.665 209.626 351.165 265.548 351.165 C 321.47 351.165 366.804 359.665 366.804 370.151 Z" style="fill: none; stroke-width: 4px; stroke: url(#gradient-0-2);"/>
+    <path d="M 317.24 375.032 C 317.24 385.518 271.906 394.018 215.984 394.018 C 160.062 394.018 114.728 385.518 114.728 375.032 C 114.728 364.546 160.062 356.046 215.984 356.046 C 271.906 356.046 317.24 364.546 317.24 375.032 Z" style="fill: none; stroke-width: 4px; stroke: url(#gradient-0-3);"/>
+  </g>
+</svg>

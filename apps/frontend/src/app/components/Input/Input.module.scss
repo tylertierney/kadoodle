@@ -1,0 +1,26 @@
+.input {
+  border-radius: 6px;
+  padding: 0.5rem;
+  max-width: 300px;
+  border: none;
+  font-size: 1.15rem;
+
+  &.primary {
+    color: var(--text-color);
+    background: transparent;
+    border: 2px solid var(--light-orange);
+  }
+
+  &.secondary {
+    background-color: #00000026;
+    border-radius: 6px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    color: white;
+    border-bottom: 2px solid white;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+  }
+}

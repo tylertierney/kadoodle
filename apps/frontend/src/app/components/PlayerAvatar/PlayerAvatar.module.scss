@@ -1,0 +1,77 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  --border: 1px solid color-mix(in hsl, var(--orange-red) 40%, transparent);
+
+  .avatar {
+    position: relative;
+    width: 80px;
+    height: 80px;
+
+    .img,
+    .video {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: var(--border);
+    }
+
+    .smallCircle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: white;
+      position: absolute;
+      top: -6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: var(--border);
+
+      &.crownBadge {
+        color: gold;
+        left: -7px;
+      }
+
+      &.points {
+        right: -7px;
+        color: var(--text-color);
+        font-size: 0.75rem;
+      }
+    }
+
+    .scoreAnimation {
+      position: absolute;
+      top: 50%;
+      left: 70%;
+      font-weight: bold;
+      color: rgb(84, 214, 84);
+      font-size: 1.1rem;
+      z-index: 3;
+      transform: translate(-50%, -50%) scale(0);
+      animation: slideAndGrow 1.5s infinite ease-in-out forwards;
+    }
+
+    @keyframes slideAndGrow {
+      from {
+        transform: translate(-50%, -50%) scale(0);
+      }
+
+      to {
+        transform: translate(-50%, -50%) scale(1.5);
+        top: 20%;
+        left: 140%;
+      }
+    }
+  }
+
+  .name {
+    background-color: white;
+    padding: 0.3rem;
+    border-radius: 6px;
+    border: var(--border);
+    translate: 0 -30%;
+    font-size: 0.8rem;
+  }
+}

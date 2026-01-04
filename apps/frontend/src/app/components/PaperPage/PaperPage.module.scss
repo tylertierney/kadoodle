@@ -1,0 +1,9 @@
+.paperPage {
+  align-self: center;
+}
+
+@media only screen and (max-width: 800px) {
+  .paperPage {
+    align-self: stretch;
+  }
+}
