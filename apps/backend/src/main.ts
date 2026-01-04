@@ -27,6 +27,8 @@ app.use(
   }),
 )
 
+app.set('trust proxy', 1)
+
 const PORT: number = process.env.PORT as unknown as number
 const port = PORT || 8080
 
@@ -34,10 +36,6 @@ const server = app.listen(port, () => {
   // console.log(`Listening at http://localhost:${port}/api`)
   // console.log(`Listening at http://192.168.254.167:${port}/api`)
   console.log(`listening on port ${port}`)
-})
-
-app.get(`/`, (_, res) => {
-  res.send({ message: `Service is live, check /api path` })
 })
 
 app.get('/api', (_, res) => {
