@@ -7,7 +7,7 @@ const ENDPOINT = endpoint || 'https://kadoodle-backend.onrender.com'
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
   ENDPOINT,
   {
-    path: '/api',
+    path: '/socket.io',
   },
 )
 

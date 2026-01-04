@@ -45,7 +45,7 @@ app.get('/api', (_, res) => {
 })
 
 const io = new Server<ClientToServerEvents, ServerToClientEvents>(server, {
-  path: '/api',
+  path: '/socket.io',
   cors: {
     origin: [
       // 'http://localhost:3000',
