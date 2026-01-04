@@ -6,6 +6,7 @@ import {
   ServerToClientEvents,
   Turn,
 } from '@kadoodle/models'
+import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
 import * as path from 'path'
@@ -18,6 +19,13 @@ dotenv.config({ path: __dirname + '/.env' })
 const app = express()
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')))
+
+app.use(
+  cors({
+    origin: ['https://kadoodle.us'],
+    methods: ['GET', 'POST'],
+  }),
+)
 
 const PORT: number = process.env.PORT as unknown as number
 const port = PORT || 8080
