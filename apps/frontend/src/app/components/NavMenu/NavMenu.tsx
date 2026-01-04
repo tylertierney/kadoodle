@@ -124,23 +124,18 @@ export default function NavMenu({ menuOpen, setMenuOpen }: Props) {
                 <p className={styles.p}>
                   Letters within each guess are highlighted based on the
                   letter's position in the answer.
-                  <ul className={styles.ul} style={{ marginTop: '0.5rem' }}>
-                    <li
-                      className={styles.li}
-                      style={{ marginBottom: '0.5rem' }}>
-                      <span style={{ color: 'green' }}>Green</span> indicates
-                      that the letter is correct <i>and</i> in the right
-                      position.
-                    </li>
-                    <li className={styles.li}>
-                      <span style={{ color: 'var(--light-orange)' }}>
-                        Orange
-                      </span>{' '}
-                      indicates that the letter exists in the answer, but is in
-                      the wrong position.
-                    </li>
-                  </ul>
                 </p>
+                <ul className={styles.ul} style={{ marginTop: '0.5rem' }}>
+                  <li className={styles.li} style={{ marginBottom: '0.5rem' }}>
+                    <span style={{ color: 'green' }}>Green</span> indicates that
+                    the letter is correct <i>and</i> in the right position.
+                  </li>
+                  <li className={styles.li}>
+                    <span style={{ color: 'var(--light-orange)' }}>Orange</span>{' '}
+                    indicates that the letter exists in the answer, but is in
+                    the wrong position.
+                  </li>
+                </ul>
               </li>
             </ol>
           </article>

@@ -22,9 +22,14 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')))
 const PORT: number = process.env.PORT as unknown as number
 const port = PORT || 8080
 
-const server = app.listen(port, '192.168.254.167', () => {
+const server = app.listen(port, () => {
   // console.log(`Listening at http://localhost:${port}/api`)
-  console.log(`Listening at http://192.168.254.167:${port}/api`)
+  // console.log(`Listening at http://192.168.254.167:${port}/api`)
+  console.log(`listening on port ${port}`)
+})
+
+app.get(`/`, (_, res) => {
+  res.send({ message: `Service is live, check /api path` })
 })
 
 app.get('/api', (_, res) => {
@@ -35,8 +40,8 @@ const io = new Server<ClientToServerEvents, ServerToClientEvents>(server, {
   path: '/api',
   cors: {
     origin: [
-      'http://localhost:3000',
-      'http://192.168.254.167:3000',
+      // 'http://localhost:3000',
+      // 'http://192.168.254.167:3000',
       'https://kadoodle.us',
     ],
     methods: ['GET', 'POST'],
