@@ -45,11 +45,7 @@ app.get('/api', (_, res) => {
 const io = new Server<ClientToServerEvents, ServerToClientEvents>(server, {
   path: '/socket.io',
   cors: {
-    origin: [
-      // 'http://localhost:3000',
-      // 'http://192.168.254.167:3000',
-      'https://kadoodle.us',
-    ],
+    origin: 'https://kadoodle.us',
     methods: ['GET', 'POST'],
   },
 })
