@@ -1,0 +1,92 @@
+.characterSelect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 1000px;
+  gap: 1rem;
+  padding: 1rem;
+  color: white;
+  align-self: center;
+
+  .menu {
+    margin-top: 1rem;
+    background-color: rgba(71, 38, 6, 0.482);
+    padding: 2rem 1rem;
+    border-radius: 20px;
+    box-shadow: 6px 6px 20px 1px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(1px);
+    align-self: stretch;
+
+    &.first {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap-reverse;
+      user-select: none;
+
+      .controls {
+        flex-grow: 1;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+
+        .tabLabel {
+          font-size: 1.2rem;
+          display: flex;
+          align-items: center;
+          flex-wrap: nowrap;
+          // padding: 0 0.5rem;
+        }
+
+        .errorText {
+          padding: 1rem 0;
+          margin: 1rem 0;
+          color: rgb(255, 211, 211);
+          font-size: 1.05rem;
+        }
+      }
+
+      .selectedCharacterContainer {
+        gap: 0;
+        min-width: 300px;
+        min-height: 180px;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .selectedCharacterImg {
+          border-radius: 100%;
+          width: 140px;
+          height: 140px;
+          border: solid white 4px;
+        }
+
+        .videoHTML {
+          object-fit: cover;
+          background-image: url('/svg/nocamera.svg');
+          background-size: 70%;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-color: rgb(60, 65, 86);
+        }
+
+        .selectedCharacterText:empty::before {
+          content: '\200b';
+        }
+      }
+    }
+
+    &.goToLobbyMenu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+  }
+}

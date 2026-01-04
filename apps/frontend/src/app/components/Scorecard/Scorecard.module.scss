@@ -1,0 +1,45 @@
+.scorecardContainer {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.titleAndLetters {
+  width: 90%;
+
+  .title {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: 700;
+    color: var(--lightorange);
+    margin-bottom: 1.5rem;
+
+    .titleSpans {
+      line-height: 0.9;
+    }
+  }
+}
+
+.titleAndUL {
+  width: 100%;
+  min-width: 320px;
+  max-width: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.btnContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 85%;
+}

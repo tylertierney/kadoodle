@@ -1,0 +1,81 @@
+.lobby {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  .header {
+    display: flex;
+    justify-content: flex-end;
+
+    .roomCodeBox {
+      display: flex;
+      flex-direction: column;
+      padding: 0.5rem;
+      gap: 0.3rem;
+      border: 1px solid var(--light-orange);
+      border-radius: 0.35rem;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(253, 229, 204);
+
+      .roomCodeLiteral {
+        font-weight: bold;
+        color: var(--text-color);
+      }
+
+      .code {
+        font-weight: bold;
+        font-size: 1.25rem;
+        color: var(--orange-red);
+      }
+    }
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding-bottom: 1rem 0 3rem 0;
+    gap: 3rem;
+
+    .h2 {
+      font-size: 1.9rem;
+      text-align: center;
+      margin: 0;
+
+      .playerCount {
+        color: var(--light-orange);
+        text-decoration: underline;
+      }
+    }
+
+    .messageAndLoader {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.25rem;
+
+      .p {
+        font-size: 1.3rem;
+        text-align: center;
+        margin: 0;
+      }
+    }
+
+    .startGameBtnAndLabel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 90%;
+      gap: 0.25rem;
+
+      .buttonLabel {
+        opacity: 0.5;
+      }
+    }
+  }
+}

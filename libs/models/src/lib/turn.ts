@@ -1,0 +1,126 @@
+import { randNumber, randWord } from '@ngneat/falso'
+import { Guess } from './guess.js'
+import { mockPlayer, Player } from './models.js'
+import { words } from './words.js'
+
+const spliceRandomItemsFromArr = <T>(options: {
+  numberToGet: number
+  arr: Array<T>
+}): Array<T> => {
+  const { numberToGet = 0, arr = [] } = options
+
+  const res: T[] = []
+
+  for (let i = 0; i < numberToGet; i++) {
+    const index = Math.floor(Math.random() * arr.length)
+    res.push(arr[index])
+    arr.splice(index, 1)
+  }
+
+  return res
+}
+
+export class Turn {
+  constructor(
+    artist: Player,
+    wordList: string[] = [],
+    players: Player[] = [],
+    partial?: Partial<Turn>,
+  ) {
+    this.artist = artist
+    this.possibleWords = spliceRandomItemsFromArr({
+      arr: wordList,
+      numberToGet: 3,
+    })
+    this.pointsThisTurn = players
+      .filter(({ id }) => id !== artist.id)
+      .reduce((acc, { nickname }) => ({ ...acc, [nickname]: 0 }), {})
+
+    if (partial) {
+      Object.assign(this, partial)
+    }
+  }
+
+  artist!: Player
+  word = ''
+  drawing = ''
+  guesses: Guess[] = []
+  active = true
+  possibleWords: string[] = []
+  pointsThisTurn: Record<Player['nickname'], number> = {}
+  lastTurn = false
+  timeRemaining = 90
+
+  setWord(word: string) {
+    this.word = word
+  }
+
+  addGuess(guess: Guess) {
+    this.guesses.push(guess)
+  }
+
+  get numOfCorrectGuesses(): number {
+    return this.guesses.reduce((acc, curr) => acc + Number(curr.isCorrect), 0)
+  }
+
+  checkIfPlayerHasAlreadyScored(playerId: Player['id']) {
+    for (const guess of this.guesses) {
+      if (guess.isCorrect && guess.id === playerId) {
+        return true
+      }
+    }
+    return false
+  }
+
+  draw(drawingData: string) {
+    this.drawing = drawingData
+  }
+
+  addPointsThisTurn(guess: Guess, pointsToAdd: number) {
+    this.pointsThisTurn[guess.nickname] = pointsToAdd
+  }
+
+  checkWhetherToEndRound(numOfPlayers: number) {
+    const lengthOfScoringPlayers = Object.values(this.pointsThisTurn).filter(
+      points => points > 0,
+    ).length
+    if (lengthOfScoringPlayers === numOfPlayers - 1) {
+      return true
+    }
+
+    return false
+  }
+}
+
+export const mockTurn = (partial?: Partial<Turn>): Turn => {
+  const possibleWords = spliceRandomItemsFromArr({
+    arr: [...words],
+    numberToGet: 3,
+  })
+  const word = possibleWords[~~(Math.random() * possibleWords.length)]
+
+  const players = Array(randNumber({ min: 3, max: 16 }))
+    .fill(null)
+    .map(mockPlayer)
+
+  const pointsThisTurn: Turn['pointsThisTurn'] = players.reduce(
+    (acc, { nickname }) => ({
+      ...acc,
+      [nickname]: randNumber({ min: 10, max: 1_000 }),
+    }),
+    {},
+  )
+
+  return new Turn(mockPlayer(), [...words], players, {
+    active: false,
+    artist: mockPlayer(),
+    drawing: randWord(),
+    guesses: [],
+    lastTurn: false,
+    pointsThisTurn,
+    possibleWords,
+    word,
+    timeRemaining: 90,
+    ...partial,
+  })
+}
