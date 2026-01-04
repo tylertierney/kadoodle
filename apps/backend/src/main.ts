@@ -22,7 +22,7 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')))
 
 app.use(
   cors({
-    origin: ['https://kadoodle.us'],
+    origin: ['https://kadoodle.us', 'https://www.kadoodle.us'],
     methods: ['GET', 'POST'],
   }),
 )
@@ -45,18 +45,7 @@ app.get('/api', (_, res) => {
 const io = new Server<ClientToServerEvents, ServerToClientEvents>(server, {
   path: '/socket.io',
   cors: {
-    origin: (origin, callback) => {
-      console.log('origin received = ' + origin)
-      if (!origin) return callback(null, true)
-
-      const allowed = ['https://kadoodle.us']
-
-      if (allowed.includes(origin)) {
-        return callback(null, true)
-      }
-
-      callback(new Error('Not allowed by CORS'))
-    },
+    origin: ['https://kadoodle.us', 'https://www.kadoodle.us'],
     methods: ['GET', 'POST'],
   },
   transports: ['polling', 'websocket'],
