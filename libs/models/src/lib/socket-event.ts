@@ -15,6 +15,7 @@ export interface ClientToServerEvents {
   getCurrentGame: (roomCode: string) => void
   endGame: (roomCode: string) => void
   restartGame: (roomCode: string) => void
+  leaveGame: (roomCode: string, player: Player) => void
 }
 
 export interface ServerToClientEvents {
@@ -31,4 +32,5 @@ export interface ServerToClientEvents {
   addedPoints: (players: Player[]) => void
   getCurrentGame: (room: Room | undefined) => void
   endGame: () => void
+  leaveGame: (player: Player, players: Player[]) => void
 }

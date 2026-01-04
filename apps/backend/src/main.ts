@@ -192,6 +192,14 @@ io.on('connection', socket => {
     room.addTurn(turnObj)
     io.to(roomCode).emit('startGame', room.turns, room.players)
   })
+
+  socket.on('leaveGame', (roomCode, player) => {
+    const room = getRoom(roomCode)
+    if (!room) return
+    room.removePlayer(player)
+    io.to(roomCode).emit('leaveGame', player, room.players)
+    socket.leave(roomCode)
+  })
 })
 
 server.on('error', console.error)

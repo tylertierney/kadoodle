@@ -3,6 +3,7 @@ import { RefObject, useCallback, useEffect, useRef, useState } from 'react'
 import { BsArrowRightCircle, BsCameraVideo } from 'react-icons/bs'
 import { FaRegUserCircle } from 'react-icons/fa'
 import { GiQueenCrown } from 'react-icons/gi'
+import { IoIosArrowBack } from 'react-icons/io'
 import { toast } from 'react-toastify'
 import { useGame } from '../../context/GameContext'
 import { usePeer } from '../../context/PeerContext'
@@ -13,7 +14,6 @@ import Input from '../Input/Input'
 import Tabs from '../Tabs/Tabs'
 import AvatarArray from './AvatarArray/AvatarArray'
 import styles from './CharacterSelect.module.scss'
-// import TabsMenu from './TabsMenu/TabsMenu'
 
 interface CharacterSelectProps {
   existingGame: boolean
@@ -133,6 +133,12 @@ export default function CharacterSelect({
 
   return (
     <div className={styles.characterSelect}>
+      <Button
+        onClick={() => setGameStage('initial')}
+        style={{ alignSelf: 'flex-start' }}
+        leftIcon={<IoIosArrowBack />}>
+        Back
+      </Button>
       <div className={`${styles.menu} ${styles.first}`}>
         <div className={styles.controls}>
           <h2

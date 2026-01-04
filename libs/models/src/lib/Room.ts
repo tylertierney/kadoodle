@@ -52,6 +52,13 @@ export class Room {
     }
     this.possibleArtists = [...this.players]
   }
+
+  removePlayer(player: Player) {
+    this.players = this.players.filter(({ id }) => id !== player.id)
+    this.possibleArtists = this.possibleArtists.filter(
+      ({ id }) => id !== player.id,
+    )
+  }
 }
 
 export const mockRoom = (partial?: Partial<Room>): Room => {

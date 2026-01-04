@@ -85,6 +85,12 @@ export function App() {
     socket.on('endGame', () => {
       endGame()
     })
+    socket.on('leaveGame', (player, players) => {
+      setPlayers(players)
+      if (player.id === currentPlayer?.id) {
+        endGame()
+      }
+    })
   }, [setPlayers, setRoomCode, setGameStage, currentPlayer, setTurns])
 
   const getGameSection = (gameStage: GameStage, isArtist: boolean) => {

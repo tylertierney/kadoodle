@@ -81,7 +81,9 @@ export class Turn {
   }
 
   checkWhetherToEndRound(numOfPlayers: number) {
-    const lengthOfScoringPlayers = Object.entries(this.pointsThisTurn).length
+    const lengthOfScoringPlayers = Object.values(this.pointsThisTurn).filter(
+      points => points > 0,
+    ).length
     if (lengthOfScoringPlayers === numOfPlayers - 1) {
       return true
     }
