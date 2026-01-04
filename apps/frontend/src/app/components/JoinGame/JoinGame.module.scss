@@ -1,0 +1,26 @@
+.header {
+  display: flex;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+
+  .h1 {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 2rem;
+  }
+
+  .error {
+    color: var(--error-text);
+    font-size: 1rem;
+    margin: 0;
+    margin-bottom: 0.5rem;
+  }
+}
