@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Ping Render API
         run: |
-          curl -fsS https://your-app-name.onrender.com/api
+          curl -fsS https://kadoodle-backend.onrender.com/api
