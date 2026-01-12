@@ -63,6 +63,8 @@ export interface GameContextType {
   roomCodeInput: string
   setRoomCodeInput: Dispatch<SetStateAction<string>>
   endGame: () => void
+  error: string
+  setError: Dispatch<SetStateAction<string>>
 }
 
 // export const mockGameContext = (): GameContextType => {
@@ -109,6 +111,8 @@ export const defaultGameContext: GameContextType = {
   roomCodeInput: '',
   setRoomCodeInput: () => ({}),
   endGame: () => ({}),
+  error: '',
+  setError: () => ({}),
 }
 
 export const mockGameContext = (
@@ -135,6 +139,7 @@ const GameProvider: FC<PropsWithChildren> = ({ children }) => {
   const [usingMedia, setUsingMedia] = useState<boolean>(false)
   const [roomCode, setRoomCode] = useState<string>('')
   const [roomCodeInput, setRoomCodeInput] = useState<string>('')
+  const [error, setError] = useState<string>('')
 
   useEffect(() => {
     const gameFromLocal = getLocalStorage()
@@ -173,6 +178,23 @@ const GameProvider: FC<PropsWithChildren> = ({ children }) => {
     roomCode,
   ])
 
+  useEffect(() => {
+    const onError = () => {
+      setError('Error connecting to server. Retrying...')
+    }
+    const onConnect = () => {
+      setError('')
+    }
+    socket.on('connect_error', onError)
+
+    socket.on('connect', onConnect)
+
+    return () => {
+      socket.off('connect_error', onError)
+      socket.off('connect', onConnect)
+    }
+  }, [])
+
   const endGame = () => {
     localStorage.removeItem('doodle-context')
     setPlayers([])
@@ -198,6 +220,8 @@ const GameProvider: FC<PropsWithChildren> = ({ children }) => {
     roomCodeInput,
     setRoomCodeInput,
     endGame,
+    error,
+    setError,
   }
   return <GameContext.Provider value={ctx}>{children}</GameContext.Provider>
 }

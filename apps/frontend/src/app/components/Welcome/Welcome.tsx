@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function Welcome({ style = {} }: Props) {
-  const { setGameStage } = useGame()
+  const { setGameStage, error } = useGame()
 
   return (
     <PaperPage>
@@ -30,6 +30,7 @@ export default function Welcome({ style = {} }: Props) {
         </p>
         <div className={styles.buttons}>
           <Button
+            disabled={Boolean(error)}
             variant="secondary"
             size="lg"
             rightIcon={<BsArrowRightCircle />}
@@ -37,6 +38,7 @@ export default function Welcome({ style = {} }: Props) {
             Join Game
           </Button>
           <Button
+            disabled={Boolean(error)}
             variant="gradient"
             size="lg"
             rightIcon={<BiPlusCircle fontSize="1.7rem" />}

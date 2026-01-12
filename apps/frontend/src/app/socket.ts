@@ -8,12 +8,8 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
   ENDPOINT,
   {
     path: '/socket.io',
+    reconnection: true,
   },
 )
-
-socket.on('connect_error', err => {
-  console.log(err.message)
-  socket.disconnect()
-})
 
 export default socket

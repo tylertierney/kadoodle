@@ -1,7 +1,9 @@
 import { Player, Room, Turn } from '@kadoodle/models'
 import { useEffect, useState } from 'react'
+import { MdError } from 'react-icons/md'
 import { Link, Route, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
+import styles from './app.module.scss'
 import CharacterSelect from './components/CharacterSelect/CharacterSelect'
 import ArtistInterface from './components/DrawingInterface/ArtistInterface/ArtistInterface'
 import GuesserInterface from './components/DrawingInterface/GuesserInterface/GuesserInterface'
@@ -27,6 +29,7 @@ export function App() {
     setGameStage,
     setTurns,
     endGame,
+    error,
   } = useGame()
   const [drawingData, setDrawingData] = useState('')
   const [menuOpen, setMenuOpen] = useState(false)
@@ -149,6 +152,12 @@ export function App() {
           element={
             <>
               <Navbar menuOpen={false} setMenuOpen={setMenuOpen} />
+              {error && (
+                <div className={styles.alert}>
+                  <MdError fontSize="1.4rem" className={styles.icon} />
+                  <span>{error}</span>
+                </div>
+              )}
               {getGameSection(gameStage, isArtist)}
               <NavMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
             </>

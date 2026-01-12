@@ -1,0 +1,17 @@
+.alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: white;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border-radius: 10px;
+  border: 2px solid #f57070;
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.228);
+
+  .icon {
+    color: #d23c3c;
+    margin-right: 0.5rem;
+  }
+}
